@@ -35,8 +35,8 @@
     // Add geocache entities to scene
     geocachePromise.then(function (dataSource) {
         viewer.dataSources.add(dataSource);
-        let geocacheEntities = dataSource.entities.values;
-        viewer.flyTo(geocacheEntities[0]);
+        let geocacheEntities = dataSource.entities;
+        viewer.flyTo(geocacheEntities.values[0]);
         updateHeightForPolygonsWithRelativeToGroundaltitudeMode(geocacheEntities, fileName);
     });
 
@@ -47,18 +47,16 @@
      * @param file .kml file name
      */
     function updateHeightForPolygonsWithRelativeToGroundaltitudeMode(geocacheEntities, file) {
-        extractPlacemarkIDs(file).then(setOfIDs => {
-            for (let i = 0; i < geocacheEntities.length; i++) {
-                let entity = geocacheEntities[i];
-                if (setOfIDs.has(entity.id)) {
-                    entity.polygon.height = undefined;
-                    entity.polygon.perPositionHeight = true;
-                    let positions = entity.polygon.hierarchy._value.positions;
-                    updatePositionsArrayWithTerrainHeight(positions, entity, false);
-                    let holes = entity.polygon.hierarchy._value.holes;
-                    for (let j = 0; j < holes.length; j++) {
-                        updatePositionsArrayWithTerrainHeight(holes[j].positions, entity, true, j);
-                    }
+        extractPlacemarkIDs(file).then(resultIDs => {
+            for (let i = 0; i < resultIDs.length; i++) {
+                let entity = geocacheEntities.getById(resultIDs[i]);
+                entity.polygon.height = undefined;
+                entity.polygon.perPositionHeight = true;
+                let positions = entity.polygon.hierarchy._value.positions;
+                updatePositionsArrayWithTerrainHeight(positions, entity, false);
+                let holes = entity.polygon.hierarchy._value.holes;
+                for (let j = 0; j < holes.length; j++) {
+                    updatePositionsArrayWithTerrainHeight(holes[j].positions, entity, true, j);
                 }
             }
         });
@@ -97,10 +95,10 @@
     }
 
     /**
-     * We are searching Placemarks which contain Polygon
+     * We are looking for Placemarks which contain Polygon
      * with RelativeToGround altitudeMode
      * @param file .kml filename
-     * @return Promise which returns set of Placemark IDs
+     * @return Promise which returns array of Placemark IDs
      */
     function extractPlacemarkIDs(file) {
         return fetch(file)
@@ -108,7 +106,7 @@
             .then(text => {
                 let parser = new DOMParser();
                 let kmlDoc = parser.parseFromString(text, "text/xml");
-                let resultSetOfIDs = new Set();
+                let resultIDs = [];
                 if (kmlDoc.documentElement.nodeName === "kml") {
                     let placemarks = kmlDoc.getElementsByTagName('Placemark');
                     for (let i = 0; i < placemarks.length; i++) {
@@ -117,13 +115,13 @@
                         let polygon = placemark.getElementsByTagName('Polygon')[0];
                         let altitudeMode = polygon.getElementsByTagName('altitudeMode')[0].innerHTML;
                         if (altitudeMode === 'RelativeToGround') {
-                            resultSetOfIDs.add(placemarkID);
+                            resultIDs.push(placemarkID);
                         }
                     }
                 } else {
                     throw "error while parsing";
                 }
-                return resultSetOfIDs;
+                return resultIDs;
             });
     }
 
