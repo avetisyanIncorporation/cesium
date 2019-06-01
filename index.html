@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- Use correct character set. -->
+        <meta charset="utf-8">
+        <!-- Tell IE to use the latest, best version. -->
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+        <!-- Make the app on mobile take up the full browser screen and disable user scaling. -->
+        <meta name="viewport"
+            content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+        <title>Cesium Polygon RelativeToGround</title>
+        <!-- The Cesium library. -->
+        <script src="https://cesiumjs.org/releases/1.57/Build/Cesium/Cesium.js"></script>
+        <link href="https://cesiumjs.org/releases/1.57/Build/Cesium/Widgets/widgets.css" rel="stylesheet">
+        <!-- Style our app. -->
+        <link rel="stylesheet" href="index.css" media="screen">
+    </head>
+    <body>
+        <!-- A container for the Cesium Viewer to live in. -->
+        <div id="cesiumContainer"></div>
+
+        <!-- Some input elements for our app. -->
+        <div class="backdrop" id="menu">
+            <a href="/Source/SampleData/sampleGeocacheLocations.kml">KML file</a>
+        </div>
+        <div id="loadingIndicator" class="cover">
+            <div id="loadingIcon" class="loadingIndicator"></div>
+        </div>
+
+        <!-- Our app code. -->
+        <script src="Source/App.js"></script>
+
+    </body>
+</html>

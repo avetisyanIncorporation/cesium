@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+    <Document>
+        <name>KML Samples</name>
+        <open>0</open>
+        <Style id="red">
+            <PolyStyle>
+                <color>7d0000ff</color>
+            </PolyStyle>
+        </Style>
+        <Style id="blue">
+            <PolyStyle>
+                <color>7dff0000</color>
+            </PolyStyle>
+        </Style>
+        <Style id="green">
+            <PolyStyle>
+                <color>7d00ff00</color>
+            </PolyStyle>
+        </Style>
+        <Placemark id="1">
+            <name>Absolute</name>
+            <styleUrl>#red</styleUrl>
+            <Polygon>
+                <altitudeMode>absolute</altitudeMode>
+                <outerBoundaryIs>
+                    <LinearRing>
+                        <coordinates>
+                            -112.3372510731295,36.14888505105317,1784
+                            -112.3356128688403,36.14781540589019,1784
+                            -112.3368169371048,36.14658677734382,1784
+                            -112.3384408457543,36.14762778914076,1784
+                            -112.3372510731295,36.14888505105317,1784
+                        </coordinates>
+                    </LinearRing>
+                </outerBoundaryIs>
+            </Polygon>
+        </Placemark>
+        <Placemark id="2">
+            <name>Relative</name>
+            <styleUrl>#blue</styleUrl>
+            <Polygon>
+                <altitudeMode>RelativeToGround</altitudeMode>
+                <outerBoundaryIs>
+                    <LinearRing>
+                        <coordinates>
+                            -112.3349463145932,36.14988705767721,500
+                            -112.3354019540677,36.14941108398372,500
+                            -112.3344428289146,36.14878490381308,500
+                            -112.3331289492913,36.14780840132443,500
+                            -112.3317019516947,36.14680755678357,500
+                            -112.331131440106,36.1474173426228,500
+                            -112.332616324338,36.14845453364654,500
+                            -112.3339876620524,36.14926570522069,500
+                            -112.3349463145932,36.14988705767721,500
+                        </coordinates>
+                    </LinearRing>
+                </outerBoundaryIs>
+            </Polygon>
+        </Placemark>
+        <Placemark id="3">
+            <name>Relative with Inner</name>
+            <styleUrl>#green</styleUrl>
+            <Polygon>
+                <altitudeMode>RelativeToGround</altitudeMode>
+                <outerBoundaryIs>
+                    <LinearRing>
+                        <coordinates>
+                            -112.3382510731295,36.14688505105317,500
+                            -112.3366128688403,36.14581540589019,500
+                            -112.3378169371048,36.14458677734382,500
+                            -112.3394408457543,36.14562778914076,500
+                            -112.3382510731295,36.14688505105317,500
+                        </coordinates>
+                    </LinearRing>
+                </outerBoundaryIs>
+                <innerBoundaryIs>
+                    <LinearRing>
+                        <coordinates>
+                            -112.3377510731295,36.14638505105317,500
+                            -112.3371128688403,36.14551540589019,500
+                            -112.3383169371048,36.14508677734382,500
+                            -112.3389408457543,36.14582778914076,500
+                            -112.3377510731295,36.14638505105317,500
+                        </coordinates>
+                    </LinearRing>
+                </innerBoundaryIs>
+            </Polygon>
+        </Placemark>
+    </Document>
+</kml>
